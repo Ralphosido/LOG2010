@@ -4,50 +4,53 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public abstract class AbstractPoint implements Comparable<AbstractPoint> {
-    protected Double[] vector;
+	protected Double[] vector;
 
-    public AbstractPoint(Double[] vector) {
-        this.vector = vector;
-    }
+	public AbstractPoint(Double[] vector) {
+		this.vector = vector;
+	}
 
-    public abstract AbstractPoint translate(Double[] translateVector);
-    public abstract AbstractPoint rotate(Double[][] rotationMatrix);
-    public abstract AbstractPoint divide(Double divider);
-    public abstract AbstractPoint multiply(Double multiplier);
-    public abstract AbstractPoint add(Double adder);
+	public abstract AbstractPoint translate(Double[] translateVector);
 
-    @Override
-    public String toString() {
-        return Arrays.stream(vector)
-                .map(v -> String.valueOf(Math.round(v)))
-                .collect(Collectors.joining("; "));
-    }
+	public abstract AbstractPoint rotate(Double[][] rotationMatrix);
 
-    @Override
-    public boolean equals(Object o) {
-        Double[] abstractVector = ((AbstractPoint)o).vector;
-        for (int i = 0; i < vector.length; ++i) {
-            if (Math.round(vector[i]) - Math.round(abstractVector[i]) != 0) {
-                return false;
-            }
-        }
-        return true;
-    }
+	public abstract AbstractPoint divide(Double divider);
 
-    @Override
-    public int hashCode() {
-        return toString().hashCode();
-    }
+	public abstract AbstractPoint multiply(Double multiplier);
 
-    @Override
-    public int compareTo(AbstractPoint other) {
-        Double[] abstractVector = other.vector;
-        for (int i = 0; i < vector.length; ++i) {
-            int comparison = vector[i].compareTo(abstractVector[i]);
-            if (comparison != 0) {
-                return comparison;
-            }
-        }
-        return 0;
-    }
+	public abstract AbstractPoint add(Double adder);
+
+	@Override
+	public String toString() {
+		return Arrays.stream(vector).map(v -> String.valueOf(Math.round(v))).collect(Collectors.joining("; "));
+	}
+
+	// TODO Question ? : cela va t il nous permet de faire un remove All ?
+	@Override
+	public boolean equals(Object o) {
+		Double[] abstractVector = ((AbstractPoint) o).vector;
+		for (int i = 0; i < vector.length; ++i) {
+			if (Math.round(vector[i]) - Math.round(abstractVector[i]) != 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		return toString().hashCode();
+	}
+
+	@Override
+	public int compareTo(AbstractPoint other) {
+		Double[] abstractVector = other.vector;
+		for (int i = 0; i < vector.length; ++i) {
+			int comparison = vector[i].compareTo(abstractVector[i]);
+			if (comparison != 0) {
+				return comparison;
+			}
+		}
+		return 0;
+	}
 }
